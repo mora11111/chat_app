@@ -1,6 +1,7 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/helper/show_snack_bar.dart';
 import 'package:chat_app/screens/chat_screen.dart';
+import 'package:chat_app/screens/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chat_app/screens/cubits/login_cubit/login_cubit.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
@@ -25,6 +26,7 @@ class LoginScreen extends StatelessWidget {
         if (state is LoginLoading) {
           // Loading state is handled by ModalProgressHUD
         } else if (state is LoginSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessage();
           Navigator.pushNamed(context, ChatScreen.id, arguments: email);
           showSnackBar(context, 'Login Success');
         } else if (state is LoginFailure) {
