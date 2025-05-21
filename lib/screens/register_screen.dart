@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-
 class RegisterScreen extends StatelessWidget {
   static String id = 'RegisterScreen';
   String? email;
@@ -17,14 +16,11 @@ class RegisterScreen extends StatelessWidget {
 
   GlobalKey<FormState> formKey = GlobalKey();
 
-
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterLoading) {
-
         } else if (state is RegisterSuccess) {
           Navigator.pushNamed(context, ChatScreen.id, arguments: email);
           showSnackBar(context, 'Register Success');
@@ -103,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<RegisterCubit>(context)
                                 .registerUser(
-                                email: email!, password: password!);
+                                    email: email!, password: password!);
                           } else {}
                         },
                         text: 'Register',

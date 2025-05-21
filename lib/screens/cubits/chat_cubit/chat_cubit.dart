@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/constant.dart';
+import 'package:chat_app/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
@@ -22,7 +23,11 @@ class ChatCubit extends Cubit<ChatState> {
 
   void getMessage(){
     messages.orderBy(KCreatedAt, descending: true).snapshots().listen((event) {
-      emit(ChatSuccess());
+      List<Message> messagesList = [];
+      for(var doc in event.docs){
+        messagesList.add(Message.fromJson(doc));
+      }
+      emit(ChatSuccess(messages: messagesList));
     });
   }
 }
